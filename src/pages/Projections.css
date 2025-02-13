@@ -1,0 +1,16 @@
+.projections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #fff;
+    background-image: url('./backg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 100vw; 
+    overflow-x: hidden; 
+  }
+  
