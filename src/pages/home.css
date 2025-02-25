@@ -1,0 +1,78 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #fff;
+  background-image: url('./backg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  width: 100vw; 
+  overflow-x: hidden; 
+}
+
+.home h1 {
+  color: #ffffff;
+
+}
+
+.home p {
+  color: #cccccc;
+  padding-top: 50px;
+}
+
+.about-button {
+  margin-top: 20px;
+  padding: 10px 40px;
+  font-size: 16px;
+  background-color: purple;
+  color: rgb(161, 216, 32);
+  border: 2px solid green; 
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px; 
+}
+
+.about-button:hover {
+  background-color: palevioletred;
+}
+
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #ff6ec4, #7873f5, #39f3bb, #ff4b2b);
+  background-size: 400% 400%;
+  animation: gradient 8s ease infinite;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: inherit;
+
+}
+
+
+/* Home.css */
+.icon {
+  width: 100px;
+  height: 100px;
+  background-color: goldenrod; 
+  border: 2px solid gold; 
+  border-radius: 50%; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+  padding: 5px; 
+  margin-top: 30px; 
+  margin-bottom: -15px;
+}
