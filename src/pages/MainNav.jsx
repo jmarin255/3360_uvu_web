@@ -1,9 +1,12 @@
-import React from "react";
-import {Link} from "react-router-dom"
-import newlog from '../assets/logo.png'
+import React, { useContext } from "react";
+import {Link} from "react-router-dom";
+import newlog from '../assets/logo.png';
+import { AuthContext } from "../context/AuthContext";
+import {FaUserCircle} from "react-icons/fa";
 
 
 const MainNav = () => {
+    const {isLoggedIn,token, logout}= useContext(AuthContext);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
           <div className="container-fluid">
@@ -37,12 +40,29 @@ const MainNav = () => {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to= "/projections">Projections</Link>
+                            <Link className="nav-link" to= "/admin">Projections</Link>
                         </li>
 
                         
 
                     </ul>
+
+                    <div className="ms-auto">
+                        {isLoggedIn ? (
+                            <div className="d-flex align-items-center">
+                                <FaUserCircle size={24} className="me-3" title={token?.username}/>
+                                <span className="text-white me-2">{token?.username}</span>
+                                <button className="btn btn-danger" onClick={logout}>
+                                    Logout
+                                </button>
+                            </div>
+                        ):(
+                            <Link className="nav-link text-white" to ="/login">
+                                <FaUserCircle size={24} className="me-3" title="Login"/>
+                            </Link>
+                        
+                        )}
+                    </div>
                 </div>
             
 
