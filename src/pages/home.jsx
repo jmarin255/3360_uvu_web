@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.css';
+import './home.css';
 import { Link } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import real from '../assets/real.png'
