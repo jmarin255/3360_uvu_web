@@ -27,7 +27,7 @@ const Admin = () => {
       try {
         const response = await fetch('https://api.sportsgameodds.com/v2/leagues/', {
           headers: {
-            'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+            'X-API-Key': 'f432597dad764f89d7b8e19486c594d1'
           }
         });
 
@@ -72,7 +72,7 @@ const Admin = () => {
         const response = await fetch(`https://api.sportsgameodds.com/v2/events?${params.toString()}`, {
           method: 'GET',
           headers: {
-            'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+            'X-API-Key': 'f432597dad764f89d7b8e19486c594d1'
           }
         });
 
@@ -104,7 +104,7 @@ const Admin = () => {
 
       const response = await fetch(`https://api.sportsgameodds.com/v2/players?${params.toString()}`, {
         headers: {
-          'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+          'X-API-Key': 'f432597dad764f89d7b8e19486c594d1'
         }
       });
 
