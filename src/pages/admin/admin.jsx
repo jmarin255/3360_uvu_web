@@ -27,7 +27,7 @@ const Admin = () => {
       try {
         const response = await fetch('https://api.sportsgameodds.com/v2/leagues/', {
           headers: {
-            'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+            'X-API-Key': '503e90138fa6aa0730ba274262038333'
           }
         });
 
@@ -72,7 +72,7 @@ const Admin = () => {
         const response = await fetch(`https://api.sportsgameodds.com/v2/events?${params.toString()}`, {
           method: 'GET',
           headers: {
-            'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+            'X-API-Key': '503e90138fa6aa0730ba274262038333'
           }
         });
 
@@ -104,7 +104,7 @@ const Admin = () => {
 
       const response = await fetch(`https://api.sportsgameodds.com/v2/players?${params.toString()}`, {
         headers: {
-          'X-API-Key': 'e80d26aa2d2e63803b4d1da5be888db7'
+          'X-API-Key': '503e90138fa6aa0730ba274262038333'
         }
       });
 
@@ -184,230 +184,212 @@ const Admin = () => {
 
   return (
     <MainLayout title="Admin | MyPage">
-      <h2>Welcome {token.username}</h2>
-      <div className="container">
-        <h1>Sports Data:</h1>
-        <label htmlFor="sport-select">Select a Sport:</label>
-        <select
-          id="sport-select"
-          value={selectedSport}
-          onChange={handleSportChange}
-        >
-          <option value="">Select a sport</option>
-          {[...new Set(sportsData.map(sport => sport.sportID))].map(sportID => (
-            <option key={sportID} value={sportID}>
-              {sportID}
-            </option>
-          ))}
-        </select>
+    
+      <div className="container-fluid">
+        <div className="row">
+    {/* Sidebar for dropdowns */}
+          <div className="col-md-3 bg-dark p-3 d-flex flex-column">
+            <h4 className="text-warning">Filters:</h4>
 
-        {selectedSport && (
-          <>
-            <label htmlFor="league-select">Select a League:</label>
+            {/* Sport Dropdown */}
+            <label htmlFor="sport-select" className="form-label text-danger">Select a Sport:</label>
             <select
-              id="league-select"
-              value={selectedLeague}
-              onChange={(e) => setSelectedLeague(e.target.value)}
+              id="sport-select"
+              className="form-select mb-3 bg-dark text-light border-warning"
+              value={selectedSport}
+              onChange={handleSportChange}
             >
-              <option value="">Select a league</option>
-              {leaguesData.map(league => (
-                <option key={league.leagueID} value={league.leagueID}>
-                  {league.name}
+              <option value="">Select a sport</option>
+              {[...new Set(sportsData.map(sport => sport.sportID))].map(sportID => (
+                <option key={sportID} value={sportID}>
+                  {sportID}
                 </option>
               ))}
             </select>
-          </>
-        )}
 
-      
+            {/* League Dropdown */}
+            {selectedSport && (
+              <>
+                <label htmlFor="league-select" className="form-label text-warning">Select a League:</label>
+                <select
+                  id="league-select"
+                  className="form-select mb-3 bg-dark text-light border-warning"
+                  value={selectedLeague}
+                  onChange={(e) => setSelectedLeague(e.target.value)}
+                >
+                  <option value="">Select a league</option>
+                  {leaguesData.map(league => (
+                    <option key={league.leagueID} value={league.leagueID}>
+                      {league.name}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
 
+            {/* Bet Types Dropdown */}
+            <label htmlFor="bet-type-select" className="form-label text-warning">Select a Bet Type:</label>
+            <select
+              id="bet-type-select"
+              className="form-select mb-3 bg-dark text-light border-warning"
+              value={selectedBetType}
+              onChange={(e) => setSelectedBetType(e.target.value)}
+            >
+              <option value="">Select a bet type</option>
+              {betTypes.map(betType => (
+                <option key={betType.id} value={betType.id}>
+                  {betType.name}
+                </option>
+              ))}
+            </select>
 
-{selectedLeague && (
-  <>
-    <label htmlFor="bettype-select">Select a Bet Type:</label>
-    <select
-      id="bettype-select"
-      value={selectedBetType}
-      onChange={(e) => setSelectedBetType(e.target.value)}
-    >
-      <option value="">Select a bet type</option>
-      {betTypes.map(betType => (
-        <option key={betType.id} value={betType.id}>
-          {betType.id} ({betType.name})
-        </option>
-      ))}
-    </select>
-  </>
-)}
+            {/* Stat Types Dropdown */}
+            <label htmlFor="stat-type-select" className="form-label text-warning bg-dark">Select a Stat Type:</label>
+            <select
+              id="stat-type-select"
+              className="form-select mb-3 bg-dark text-light border-warning"
+              value={selectedStatType}
+              onChange={(e) => setSelectedStatType(e.target.value)}
+            >
+              <option value="">Select a stat type</option>
+              {StatTypes.map(statType => (
+                <option key={statType} value={statType}>
+                  {statType}
+                </option>
+              ))}
+            </select>
 
+            {/* OU Type Dropdown */}
+            {selectedBetType === 'ou' && (
+              <>
+                <label htmlFor="ou-type-select" className="form-label text-warning">Select OU Type:</label>
+                <select
+                  id="ou-type-select"
+                  className="form-select mb-3 bg-dark text-light border-warning"
+                  value={selectedOUType}
+                  onChange={(e) => setSelectedOUType(e.target.value)}
+                >
+                  <option value="">Select OU Type</option>
+                  <option value="player">Player Props</option>
+                  <option value="game">Game Props</option>
+                </select>
+              </>
+            )}
+          </div>
 
-{selectedBetType && (
-  <>
-   
-    <label htmlFor="stattype-select">Select a stat criteria</label>
-    <select
-      id="stattype-select"
-      value={selectedStatType}
-      onChange={(e) => setSelectedStatType(e.target.value)}
-    >
-      <option value="">Select a stat type</option>
-      {StatTypes.map(statType => (
-        <option key={statType} value={statType}>
-          {statType}
-        </option>
-      ))}
-    </select>
-
-    
-    {selectedBetType === 'ou' && (
-      <>
-        <label htmlFor="ou-type-select">Select OU Type:</label>
-        <select
-          id="ou-type-select"
-          value={selectedOUType}
-          onChange={(e) => setSelectedOUType(e.target.value)}
-        >
-          <option value="">Select OU Type</option>
-          <option value="player">Player Props</option>
-          <option value="game">Game Props</option>
-        </select>
-      </>
-    )}
-  </>
-)}
-
-
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <ul>
-          {eventData.map(event => (
-            <li key={event.eventID}>
-              <strong>Event ID:</strong> {event.eventID}<br />
-              <strong>Sport:</strong> {event.sportID}<br />
-              <strong>League:</strong> {event.leagueID}<br />
-              <strong>Home Team:</strong> {event.teams ? event.teams.home.names.long : 'N/A'}<br />
-              <strong>Away Team:</strong> {event.teams ? event.teams.away.names.long : 'N/A'}<br />
-              <strong>Odds:</strong>
-              <ul>
-              {event.odds
-                  ? Object.values(event.odds)
-
-
-                  
-                      .filter(oddObject =>
-                        (!selectedBetType || oddObject.betTypeID === selectedBetType) &&
-                        (!selectedStatType || oddObject.statID === selectedStatType) &&
-                        (selectedBetType !== 'ou' || 
-                          (selectedOUType === 'player' && oddObject.playerID) || 
-                          (selectedOUType === 'game' && !oddObject.playerID))
-                      )
-
-
-                      
-                      .map(oddObject => {
-                        if (oddObject.betTypeID === 'ml') {
-                          
-                          return (
-                            <li key={oddObject.oddID}>
-                              Stat: {oddObject.statID}, Home or away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Book Odds: {oddObject.bookOdds || 'N/A'}
-                            </li>
-                          );
-                        }
-
-
-                        if (oddObject.betTypeID === 'ml3way') {
-                          return (
-                            <li key={oddObject.oddID}>
-                              Stat: {oddObject.sideID}, Home or away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Book Odds: {oddObject.bookOdds || 'N/A'}
-                            </li>
-                          );
-                        }
+    {/* Main content for results */}
+    <div className="col-md-9 text-light p-3 border-start border-warning">
+      <h4 className="text-warning">Results:</h4>
+      {loading ? (
+        <p className="text-warning">Loading...</p>
+      ) : error ? (
+        <p className="text-danger">{error}</p>
+      ) : (
+        <div className="overflow-auto" style={{ maxHeight: "500px" }}>
+          <ul className="list-group">
+            {eventData.map(event => (
+              <li key={event.eventID} className="list-group-item mb-2 bg-dark text-light border border-warning">
+                <strong className="text-warning">Event ID:</strong> {event.eventID}<br />
+                <strong className="text-warning">Sport:</strong> {event.sportID}<br />
+                <strong className="text-warning">League:</strong> {event.leagueID}<br />
+                <strong className="text-success">Home Team:</strong> {event.teams ? event.teams.home.names.long : 'N/A'}<br />
+                <strong className="text-danger">Away Team:</strong> {event.teams ? event.teams.away.names.long : 'N/A'}<br />
+                <strong className="text-warning">Odds:</strong>
+                <ul className="list-group mt-2 bg-dark text-light">
+                  {event.odds
+                    ? Object.values(event.odds)
+                        .filter(oddObject =>
+                          (!selectedBetType || oddObject.betTypeID === selectedBetType) &&
+                          (!selectedStatType || oddObject.statID === selectedStatType) &&
+                          (selectedBetType !== 'ou' || 
+                            (selectedOUType === 'player' && oddObject.playerID) || 
+                            (selectedOUType === 'game' && !oddObject.playerID))
+                        )
+                        .map(oddObject => {
+                          if (oddObject.betTypeID === 'ml') {
+                            return (
+                              <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                                Stat: {oddObject.statID}, Home/Away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Book Odds: {oddObject.bookOdds || 'N/A'}
+                              </li>
+                            );
+                          }
 
 
-                        if (oddObject.betTypeID === 'sp') {
-                          return (
-                            <li key={oddObject.oddID}>
-                              Home or away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Spread: {oddObject.bookSpread} Book Odds: {oddObject.bookOdds || 'N/A'}
-                            </li>
-                          );
-                        }
-                        
-                        if (oddObject.betTypeID === 'ou' && oddObject.playerID) {
-                          const player = event.players[oddObject.playerID]; 
-                          return (
-                            <li key={oddObject.oddID}>
-                              {player && (
-                                <div>
-                                  <span>Player: {player.firstName} {player.lastName}</span>, 
-                                  <span> Team: {player.teamID}</span>
-                                </div>
-                              )}
-                              <ul>
-                                <li>Stat: {oddObject.statID}</li>
-                                <li>Over/under: {oddObject.sideID}</li>
-                                <ul>
-                                  <li>Projection: {oddObject.bookOverUnder || 'N/A'}</li>
-                                  <li>Odd Value: {oddObject.bookOdds || 'N/A'}</li>
+                          if (oddObject.betTypeID === 'ml3way') {
+                            return (
+                              <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                                Stat: {oddObject.sideID}, Home/Away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Book Odds: {oddObject.bookOdds || 'N/A'}
+                              </li>
+                            );
+                          }
+
+                          if (oddObject.betTypeID === 'sp') {
+                            return (
+                              <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                                Home/Away: {oddObject.statEntityID}, Period: {oddObject.periodID}, Spread: {oddObject.bookSpread}, Book Odds: {oddObject.bookOdds || 'N/A'}
+                              </li>
+                            );
+                          }
+
+                          if (oddObject.betTypeID === 'ou' && oddObject.playerID) {
+                            const player = event.players[oddObject.playerID];
+                            return (
+                              <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                                {player && (
+                                  <div>
+                                    <span className="text-warning">Player: {player.firstName} {player.lastName}</span>, 
+                                    <span className="text-success">Team: {player.teamID}</span>
+                                  </div>
+                                )}
+                                <ul className="list-group mt-2 bg-dark text-light">
+                                  <li className="list-group-item bg-dark text-light border border-warning">Stat: {oddObject.statID}, Period: {oddObject.periodID}</li>
+                                  <li className="list-group-item bg-dark text-light border border-warning">Over/Under: {oddObject.sideID}</li>
+                                  <li className="list-group-item bg-dark text-light border border-warning">
+                                    Projection: {oddObject.bookOverUnder || 'N/A'}<br />
+                                    Odd Value: {oddObject.bookOdds || 'N/A'}
+                                  </li>
                                 </ul>
-                              </ul>
-                            </li>
-                          );
-                        }
+                              </li>
+                            );
+                          }
 
-
-
-                        if (oddObject.betTypeID === 'yn' && oddObject.playerID) {
-                          const player = event.players[oddObject.playerID]; 
-                          return (
-                            <li key={oddObject.oddID}>
-                              {player && (
-                                <div>
-                                  <span>Player: {player.firstName} {player.lastName}</span>, 
-                                  <span> Team: {player.teamID}</span>
-                                </div>
-                              )}
-                              <ul>
-                                <li>Stat: {oddObject.statID}</li>
-                                <li>Yes or no: {oddObject.sideID}</li>
-                                <ul>
-                                  <li>Odd Value: {oddObject.bookOdds || 'N/A'}</li>
+                          if (oddObject.betTypeID === 'yn' && oddObject.playerID) {
+                            const player = event.players[oddObject.playerID];
+                            return (
+                              <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                                {player && (
+                                  <div>
+                                    <span className="text-warning">Player: {player.firstName} {player.lastName}</span>, 
+                                    <span className="text-success">Team: {player.teamID}</span>
+                                  </div>
+                                )}
+                                <ul className="list-group mt-2 bg-dark text-light">
+                                  <li className="list-group-item bg-dark text-light border border-warning">Stat: {oddObject.statID}</li>
+                                  <li className="list-group-item bg-dark text-light border border-warning">Yes/No: {oddObject.sideID}</li>
+                                  <li className="list-group-item bg-dark text-light border border-warning">
+                                    Odd Value: {oddObject.bookOdds || 'N/A'}
+                                  </li>
                                 </ul>
-                              </ul>
+                              </li>
+                            );
+                          }
+
+                          return (
+                            <li key={oddObject.oddID} className="list-group-item bg-dark text-light border border-warning">
+                              Over or under: {oddObject.sideID}, Home or away: {oddObject.statEntityID} , Projection: {oddObject.openBookOverUnder} Book Odds: {oddObject.bookOdds || 'N/A'}
                             </li>
                           );
-                        }
-
-
-                     
-                        
-                        
-                       
-                        return (
-                          <li key={oddObject.oddID}>
-                            Odd ID: {oddObject.oddID}, Projection: {oddObject.bookOverUnder || 'N/A'}, Odd Value: {oddObject.bookOdds || 'N/A'}
-                          </li>
-                        );
-                        
-                        
-
-                      })
-                  : 'N/A'}
-
-              
-
-               
-              </ul>
-            </li>
-          ))}
-        </ul>
-        
-
-
-        )}
-      </div>
+                        })
+                    : 'N/A'}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
     </MainLayout>
   );
 };
