@@ -1,0 +1,4 @@
+
+ After getting backend running we can fire up the frontend with the command "npm run dev"
+ VERY IMPORTANT: this should be running on 
+http://localhost:5173/. Make sure this is the case otherwise authentication is not going to work. User is "user@123" and password is "pass123" for the login page.
